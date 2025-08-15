@@ -179,7 +179,7 @@ export default function PriceAlert({ cryptoData }: PriceAlertProps) {
                   disabled={!selectedCoin || !targetPrice}
                   className="flex-1 bg-green-600 hover:bg-green-700 disabled:bg-gray-600 px-4 py-2 rounded-lg"
                 >
-                  Create Alert
+                  Create Event
                 </button>
                 <button
                   onClick={() => setShowCreateAlert(false)}
