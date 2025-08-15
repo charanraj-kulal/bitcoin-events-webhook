@@ -19,17 +19,19 @@ interface MarketEvent {
   percentage?: number;
 }
 
+interface CryptoData {
+  id: string;
+  name: string;
+  symbol: string;
+  current_price: number;
+  price_change_percentage_1h_in_currency?: number;
+  price_change_percentage_24h_in_currency?: number;
+  total_volume: number;
+  image: string;
+}
+
 interface LiveEventsProps {
-  cryptoData: Array<{
-    id: string;
-    name: string;
-    symbol: string;
-    current_price: number;
-    price_change_percentage_1h_in_currency?: number;
-    price_change_percentage_24h_in_currency?: number;
-    total_volume: number;
-    image: string;
-  }>;
+  cryptoData: Array<CryptoData>;
 }
 
 export default function LiveEvents({ cryptoData }: LiveEventsProps) {
@@ -40,7 +42,7 @@ export default function LiveEvents({ cryptoData }: LiveEventsProps) {
 
   const generateEvent = (
     type: MarketEvent["type"],
-    coin: any,
+    coin: CryptoData,
     message: string,
     severity: MarketEvent["severity"],
     value?: number,
@@ -167,8 +169,6 @@ export default function LiveEvents({ cryptoData }: LiveEventsProps) {
       newPreviousPrices[coin.id] = coin.current_price;
     });
     setPreviousPrices(newPreviousPrices);
-
-    // Add new events and limit to 20 most recent
     if (newEvents.length > 0) {
       setEvents((prev) => [...newEvents, ...prev].slice(0, 20));
     }
